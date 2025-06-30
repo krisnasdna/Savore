@@ -13,9 +13,10 @@ model Profile {
   supabase_user_id String        @unique
   email            String        @unique
   name             String?
-  image_url        String?
+  image_url        String?       
   transactions     Transaction[]
   budget           Budget[]
+  category         Category[]
   created_at       DateTime      @default(now())
   updated_at       DateTime      @updatedAt
 
@@ -27,6 +28,8 @@ model Transaction {
   profile             Profile            @relation(fields: [profileId], references: [id], onDelete: Cascade)
   profileId           String
   type                TransactionType
+  category            Category          @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId          String
   amount              Decimal
   description         String
   date                DateTime
@@ -44,13 +47,27 @@ model Budget {
   id         String   @id @default(uuid())
   profile    Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
   profileId  String
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId String
   amount     Decimal
+  period     DateTime
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
   @@map("budgets")
 }
+model Category {
+  id                String   @id @default(uuid())
+  profile           Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId         String
+  transactions      Transaction[]
+  budget            Budget[]
+  name              String
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
 
+  @@map("categories")
+}
 enum TransactionType {
   INCOME
   EXPENSE
