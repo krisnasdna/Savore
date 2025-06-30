@@ -1,10 +1,64 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
+model Profile {
+  id               String        @id @default(uuid())
+  supabase_user_id String        @unique
+  email            String        @unique
+  name             String?
+  image_url        String?
+  transactions     Transaction[]
+  budget           Budget[]
+  created_at       DateTime      @default(now())
+  updated_at       DateTime      @updatedAt
+
+  @@map("profiles")
+}
+
+model Transaction {
+  id                  String             @id @default(uuid())
+  profile             Profile            @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId           String
+  type                TransactionType
+  amount              Decimal
+  description         String
+  date                DateTime
+  is_recurring        Boolean
+  recurring_interval  RecurringInterval?
+  next_recurring_date DateTime?
+  last_processed      DateTime?
+  created_at          DateTime           @default(now())
+  updated_at          DateTime           @updatedAt
+
+  @@map("transactions")
+}
+
+model Budget {
+  id         String   @id @default(uuid())
+  profile    Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId  String
+  amount     Decimal
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("budgets")
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+}
+
+enum RecurringInterval {
+  DAILY
+  WEEKLY
+  MONTHLY
+  YEARLY
+}

@@ -22,7 +22,7 @@
             password: user.password
         })
         if(error) throw error
-        router.push('/profile')
+        router.push('/dashboard')
         }catch(error){
             alert(error.message)
         }

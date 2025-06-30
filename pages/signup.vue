@@ -11,6 +11,7 @@
 <script setup>
     const supabase = useSupabaseClient()
     const user = reactive({
+        name:'',
         email: '',
         password: ''
     })
@@ -18,11 +19,11 @@
     async function handleSignup() {
         try{
         const {error} = await supabase.auth.signUp({
-            email: user.email,
-            password: user.password
+                email: user.email,
+                password: user.password
         })
         if(error) throw error
-            alert('Cek Email Kamu Untuk Verifikasi!')
+        alert('Cek Email Kamu Untuk Verifikasi!')
         }catch(error){
             alert(error.message)
         }finally{
