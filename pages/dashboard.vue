@@ -60,10 +60,9 @@
 
   async function handleUpdateProfile(){
     try{
-      const {error} = await $fetch(`/api/profiles/`, {
+      const {error} = await $fetch(`/api/profiles/${dataProfile.id}`, {
         method: 'PUT',
         body: {
-          id: dataProfile.id,
           name: dataProfile.name,
           email: dataProfile.email,
           image_url: dataProfile.imageUrl

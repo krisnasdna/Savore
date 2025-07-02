@@ -5,11 +5,12 @@ export default defineEventHandler(async (event) => {
 
   const updateCategory = await prisma.category.update({
     where:{
-      id: body.id
+      id: event.context.params.id
     },
     data:{
       name: body.name,
-      updated_At: Date.now()
     }
   })
+
+  return updateCategory
 })

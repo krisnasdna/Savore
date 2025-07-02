@@ -1,9 +1,9 @@
 import prisma from "~/lib/prisma"
 
 export default defineEventHandler(async (event) => {
-  const category = await prisma.category.findMany({
+  const category = await prisma.category.findUnique({
     where:{
-      profileId: event.context.params.id
+      id: event.context.params.id
     }
   })
 

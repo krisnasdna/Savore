@@ -2,7 +2,6 @@ import { z } from "zod"
 import prisma from "~/lib/prisma"
 
 const schema = z.object({
-  id: z.string().uuid('Invalid ID Format'),
   name: z.string().min(1,'Name is required'),
   email: z.string().min(1,'Email is required').email('This is not a valid email.'),
   image_url: z.string().url()
@@ -19,11 +18,11 @@ export default defineEventHandler(async (event) => {
       error: result.error.message
     }
   }
-  const {id, name, email, image_url} = result.data
+  const { name, email, image_url} = result.data
 
   const profile = await prisma.profile.update({
     where:{
-      id: id
+      id: event.context.params.id
     },
     data:{
       name: name,

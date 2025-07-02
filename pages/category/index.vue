@@ -1,40 +1,43 @@
 <template>
   <div>
     <NuxtLink to="/category/create">Create category</NuxtLink>
-    <div v-if="!categories">
-        <h1>Belum Ada Data...</h1>
+
+    <div v-if="pending">
+      Loading...
     </div>
-    <div v-else>
-       <ul>
-        <li v-for="(category, index) in categories" :key="index">
-          {{ category.name }}<NuxtLink :to="`/category/update/${category.id}`"> edit</NuxtLink>
-        </li>
-       </ul>
+
+    <div v-else-if="error">
+      Terjadi kesalahan: {{ error.message }}
     </div>
+
+    <div v-else-if="isEmpty">
+      Belum ada data...
+    </div>
+
+    <ul v-else>
+      <li v-for="category in categories" :key="category.id">
+        {{ category.name }}
+        <NuxtLink :to="`/category/update/${category.id}`"> edit</NuxtLink>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script setup>
-  definePageMeta({
-    middleware: ['auth']
-  })
-  const user = useSupabaseUser();
+definePageMeta({
+  middleware: ['auth']
+})
 
-  const id = computed(() => user.value.id);
+const { data: categories, pending, error } = await useAsyncData('categories', () =>
+  $fetch('/api/category'),{
+    server: false,
+    lazy: true,
+    staleTime: 60 * 1000
+  }
+)
 
-  const {data:profile , pending, error} = await useFetch(() => `/api/profiles/${id.value}`);
-
-  const categories = ref()
-
-  watchEffect(async () => {
-    if (profile.value && profile.value.id) {
-      const { data } = await useFetch(`/api/category/${profile.value.id}`)
-      categories.value = data.value
-    }
-  });
+const isEmpty = computed(() =>
+  Array.isArray(categories.value) && categories.value.length === 0
+)
 
 </script>
-
-<style>
-
-</style>
