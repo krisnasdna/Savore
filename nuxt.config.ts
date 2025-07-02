@@ -12,8 +12,15 @@ export default defineNuxtConfig({
   supabase: {
     redirect: false
   },
-  nitro:{
-    preset: 'vercel', 
+  vite: {
+    resolve: {
+      alias: {
+        '@prisma/client/index-browser': './empty-module.js'
+      }
+    }
+  },
+  nitro: {
+    preset: 'vercel',
     externals: {
       external: ['@prisma/client'],
     },
