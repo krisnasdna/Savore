@@ -11,6 +11,12 @@ export default defineNuxtConfig({
   ],
   supabase: {
     redirect: false
+  },
+  nitro:{
+    preset: 'vercel', 
+    externals: {
+      external: ['@prisma/client'],
+    },
   }
 
 })
