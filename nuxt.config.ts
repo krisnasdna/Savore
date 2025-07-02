@@ -7,7 +7,22 @@ export default defineNuxtConfig({
     '@nuxtjs/supabase',
     '@nuxt/image',
     '@nuxt/icon',
-    '@prisma/nuxt'
+    '@prisma/nuxt',
+    '@pinia/nuxt',
+    [
+      '@vee-validate/nuxt',
+      {
+        // disable or enable auto imports
+        autoImports: true,
+        // Use different names for components
+        componentNames: {
+          Form: 'VeeForm',
+          Field: 'VeeField',
+          FieldArray: 'VeeFieldArray',
+          ErrorMessage: 'VeeErrorMessage',
+        },
+      },
+    ],
   ],
   supabase: {
     redirect: false
@@ -24,6 +39,7 @@ export default defineNuxtConfig({
     externals: {
       external: ['@prisma/client'],
     },
-  }
+  },
+  
 
 })

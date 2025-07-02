@@ -7,7 +7,7 @@
     <div v-else>
        <ul>
         <li v-for="(category, index) in categories" :key="index">
-          {{ category.name }}<NuxtLink :to="`/category/update/${category.id}`">edit</NuxtLink>
+          {{ category.name }}<NuxtLink :to="`/category/update/${category.id}`"> edit</NuxtLink>
         </li>
        </ul>
     </div>
@@ -18,7 +18,6 @@
   definePageMeta({
     middleware: ['auth']
   })
-  const supabase = useSupabaseClient();
   const user = useSupabaseUser();
 
   const id = computed(() => user.value.id);

@@ -1,37 +1,53 @@
 <template>
   <div>
     <h1>{{ profile?.name }}</h1>
-      <form @submit.prevent="handleCreateCategory">
-        <input type="text" v-model="categoryName" placeholder="Enter Category">
-        <input type="submit">
-      </form>
+      <Form :validation-schema="validationSchema" @submit="handleCreateCategory">
+        <Field name="name" type="text"/>
+        <ErrorMessage name="name"/>
+        <button>
+          Submit
+        </button>
+      </Form>
   </div>
 </template>
 
 <script setup>
+import { Form, Field, ErrorMessage } from 'vee-validate';
+import { toTypedSchema } from '@vee-validate/zod';
+import * as z from 'zod'
+
     definePageMeta({
     middleware: ['auth']
   })
-  const user = useSupabaseUser();
+
+  const user = useSupabaseUser()
   const router = useRouter()
-  const id = computed(() => user.value.id);
+  const id = computed(() => user.value.id)
 
-  const {data:profile , pending, error} = await useFetch(() => `/api/profiles/${id.value}`);
+  const {data:profile} = await useFetch(() => `/api/profiles/${id.value}`)
 
-  const categoryName = ref(null);
 
-  async function handleCreateCategory() {
+  const validationSchema = toTypedSchema(
+    z.object({
+      name: z.string().trim().min(1, 'Name is required').max(100)
+    })
+  )
+
+  async function handleCreateCategory(values) {
     try{
       await $fetch(`/api/category`,{
         method: 'POST',
         body:{
-          name: categoryName.value,
+          name: values.name,
           profileId: profile.value.id
         }
       })
+
       alert('berhasil menambahkan category!')
       router.push('/category/')
+
     }catch(error){
+
       alert("gagal menambahkan category")
     }
   }

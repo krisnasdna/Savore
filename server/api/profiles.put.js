@@ -1,7 +1,26 @@
+import { z } from "zod"
 import prisma from "~/lib/prisma"
 
+const schema = z.object({
+  id: z.string().uuid('Invalid ID Format'),
+  name: z.string().min(1,'Name is required'),
+  email: z.string().min(1,'Email is required').email('This is not a valid email.'),
+  image_url: z.string().url()
+
+})
+
 export default defineEventHandler(async (event) => {
-  const {id, name, email, image_url} = await readBody(event)
+  const body = await readBody(event)
+  const result = schema.safeParse(body)
+
+  if(!result.success){
+    return {
+      success: false,
+      error: result.error.message
+    }
+  }
+  const {id, name, email, image_url} = result.data
+
   const profile = await prisma.profile.update({
     where:{
       id: id
@@ -13,5 +32,8 @@ export default defineEventHandler(async (event) => {
     }
   })
 
-  return profile
+  return {
+    success: true,
+    data: profile
+  }
 })
