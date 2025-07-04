@@ -18,9 +18,7 @@
 </template>
 
 <script setup>
-import { boolean } from 'zod';
-
-const toggled = defineModel('modelValue', {type: boolean});
+const toggled = defineModel('modelValue', {type: Boolean});
 </script>
 
 <style>

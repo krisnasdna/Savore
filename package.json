@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@google/genai": "^1.8.0",
     "@nuxt/icon": "^1.14.0",
     "@nuxt/image": "^1.10.0",
     "@nuxtjs/supabase": "^1.5.3",

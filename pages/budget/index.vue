@@ -2,7 +2,7 @@
   <div>
     <NuxtLink to="/budget/create">Create Budget</NuxtLink>
 
-    <h2 class="text-xl font-bold mb-4">Perbandingan Budget per Kategori</h2>
+    <h2 class="text-xl font-bold mb-4">Budget</h2>
 
     <div v-if="pending">Loading...</div>
 
