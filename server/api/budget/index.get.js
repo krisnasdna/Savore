@@ -1,6 +1,6 @@
 import prisma from "~/lib/prisma"
 import {  serverSupabaseUser } from '#supabase/server';
-import { endOfMonth, parseISO, startOfMonth, subMonths } from "date-fns";
+import { endOfMonth, startOfMonth, subMonths } from "date-fns";
 
 export default defineEventHandler(async (event) => {
     const user = await serverSupabaseUser(event)
@@ -33,7 +33,7 @@ export default defineEventHandler(async (event) => {
             statusMessage: 'Profile not found'
         })
     }
-    const [ budgetNow, budgetPrev ] = await Promise.all([
+    const [ budgetNow, budgetPrev, trxNow, trxPrev ] = await Promise.all([
         prisma.budget.findMany({
             where:{
                 profileId: profile.id,
@@ -63,7 +63,37 @@ export default defineEventHandler(async (event) => {
             orderBy:{
                 period: 'asc'
             }
-        })
+        }),
+        prisma.transaction.findMany({
+            where:{
+                profileId: profile.id,
+                date:{
+                    gte: startOfMonth(monthStart),
+                    lte: endOfMonth(monthEnd)
+                }
+            },
+            include:{
+                category: true
+            },
+            orderBy:{
+                date: 'asc'
+            }
+        }),
+        prisma.transaction.findMany({
+            where:{
+                profileId: profile.id,
+                date:{
+                    gte: startOfMonth(lastMonthStart),
+                    lte: endOfMonth(lastMonthEnd)
+                }
+            },
+            include:{
+                category: true
+            },
+            orderBy:{
+                date: 'asc'
+            }
+        }),
 
     ])
 
@@ -78,24 +108,32 @@ export default defineEventHandler(async (event) => {
         return map
     }
     
-    const nowMap = groupCategory(budgetNow)
-    const prevMap = groupCategory(budgetPrev)
+    const budgetMapNow = groupCategory(budgetNow)
+    const budgetMapPrev= groupCategory(budgetPrev)
+    const trxMapNow = groupCategory(trxNow)
+    const trxMapPrev = groupCategory(trxPrev)
 
-    const allCategory = new Set([...nowMap.keys(), ...prevMap.keys()])
 
-    const compare = Array.from(allCategory).map((categoryId) =>{
-        const now = nowMap.get(categoryId)
-        const prev = prevMap.get(categoryId)
+    const allCategoryId = new Set([...budgetMapNow.keys(), ...budgetMapPrev.keys(), ...trxMapNow.keys(), ...trxMapPrev.keys()])
+
+    const result = Array.from(allCategoryId).map((categoryId) =>{
+        const bNow = budgetMapNow.get(categoryId)
+        const bPrev = budgetMapPrev.get(categoryId)
+        const tNow = trxMapNow.get(categoryId)
+        const tPrev = trxMapPrev.get(categoryId)
 
         return{
             categoryId,
-            categoryName: now?.name || prev?.name || 'Tanpa Kategori',
-            totalNow: Number(now?.total || 0),
-            totalPrev: Number(prev?.total || 0),
-            difference: (now?.total || 0) - (prev?.total || 0)
+            categoryName: bNow?.name || bPrev?.name || tNow?.name || tPrev?.name ||'Tanpa Kategori',
+            budgetTotalNow: Number(bNow?.total || 0),
+            budgetTotalPrev: Number(bPrev?.total || 0),
+            trxTotalNow: Number(tNow?.total || 0),
+            trxTotalPrev: Number(tPrev?.total || 0),
+            differenceNow: (bNow?.total || 0) - (tNow?.total || 0),
+            differencePrev: (bPrev?.total || 0) - (tPrev?.total || 0)
         }
 
     })
 
-    return compare
+    return result
 })

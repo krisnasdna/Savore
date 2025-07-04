@@ -4,7 +4,7 @@ import prisma from "~/lib/prisma"
 const schema = z.object({
   name: z.string().trim().min(1,'Name is required'),
   email: z.string().min(1,'Email is required').email('This is not a valid email.'),
-  image_url: z.string().trim().url()
+  image_url: z.string().trim().url({ hostname: /^qyxungkfacihgkmnevxr\.supabase.co$/ })
 })
 
 export default defineEventHandler(async (event) => {

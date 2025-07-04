@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NuxtLink to="/budget/create">Create category</NuxtLink>
+    <NuxtLink to="/budget/create">Create Budget</NuxtLink>
 
     <h2 class="text-xl font-bold mb-4">Perbandingan Budget per Kategori</h2>
 
@@ -16,13 +16,22 @@
           class="p-4 bg-white rounded-lg shadow"
         >
           <p class="font-semibold">{{ item.categoryName }}</p>
-          <p>Bulan Ini: Rp {{ item.totalNow.toLocaleString() }}</p>
-          <p>Bulan Lalu: Rp {{ item.totalPrev.toLocaleString() }}</p>
+          <p>Bulan Ini: Rp {{ item.budgetTotalNow.toLocaleString() }}</p>
+          <p>Transaksi Bulan Ini: Rp {{ item.trxTotalNow.toLocaleString() }}</p>
           <p>
             Selisih:
-            <span :class="item.difference >= 0 ? 'text-green-600' : 'text-red-600'">
-              {{ item.difference >= 0 ? '+' : '-' }}
-              Rp {{ Math.abs(item.difference).toLocaleString() }}
+            <span :class="item.differenceNow >= 0 ? 'text-green-600' : 'text-red-600'">
+              {{ item.differenceNow >= 0 ? '+' : '-' }}
+              Rp {{ Math.abs(item.differenceNow).toLocaleString() }}
+            </span>
+          </p>
+          <p>Bulan Lalu: Rp {{ item.budgetTotalPrev.toLocaleString() }}</p>
+          <p>Transaksi Bulan Ini: Rp {{ item.trxTotalPrev.toLocaleString() }}</p>
+          <p>
+            Selisih:
+            <span :class="item.differencePrev >= 0 ? 'text-green-600' : 'text-red-600'">
+              {{ item.differencePrev >= 0 ? '+' : '-' }}
+              Rp {{ Math.abs(item.differencePrev).toLocaleString() }}
             </span>
           </p>
         </li>
