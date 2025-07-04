@@ -28,13 +28,8 @@ definePageMeta({
   middleware: ['auth']
 })
 
-const { data: categories, pending, error } = await useAsyncData('categories', () =>
-  $fetch('/api/category'),{
-    server: false,
-    lazy: true,
-    staleTime: 60 * 1000
-  }
-)
+
+const { data: categories, pending, error } = await useCategories()
 
 const isEmpty = computed(() =>
   Array.isArray(categories.value) && categories.value.length === 0

@@ -2,10 +2,9 @@ import { z } from "zod"
 import prisma from "~/lib/prisma"
 
 const schema = z.object({
-  name: z.string().min(1,'Name is required'),
+  name: z.string().trim().min(1,'Name is required'),
   email: z.string().min(1,'Email is required').email('This is not a valid email.'),
-  image_url: z.string().url()
-
+  image_url: z.string().trim().url()
 })
 
 export default defineEventHandler(async (event) => {
