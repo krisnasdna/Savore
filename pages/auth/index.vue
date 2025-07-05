@@ -1,28 +1,37 @@
 <template>
     <div>
-        <form @submit.prevent="handleLogin">
-            <input type="email" v-model="user.email" placeholder="Enter Your Email">
-            <input type="password" v-model="user.password" placeholder="Enter Your Email">
-            <input type="submit">
-        </form>
+        <Form :validation-schema="validateSchema" @submit="handleLogin">
+            <Field name="email" type="email" placeholder="Enter Your Email"/>
+            <ErrorMessage name="email"/>
+            <Field name="password" type="password" placeholder="Enter Your Password"/>
+            <ErrorMessage name="password"/>
+            <button type="submit">Submit</button>
+        </Form>
     </div>
 </template>
 
 <script setup>
+import { Form, Field, ErrorMessage } from 'vee-validate';
+import { toTypedSchema } from '@vee-validate/zod';
+import * as z from 'zod'
+
     const supabase = useSupabaseClient()
     const router = useRouter()
-    const user = reactive({
-        email: '',
-        password: ''
-    })
-    async function handleLogin() {
-        try{
-        const {error} = await supabase.auth.signInWithPassword({
-            email: user.email,
-            password: user.password
+    const validateSchema = toTypedSchema(
+        z.object({
+            email: z.string().min(1, 'Email is required').email(),
+            password: z.string().trim().min(1, 'Password is required')
         })
-        if(error) throw error
-        router.push('/dashboard')
+    )
+
+    async function handleLogin(values) {
+        try{
+            const {error} = await supabase.auth.signInWithPassword({
+                email: values.email,
+                password: values.password
+            })
+            if(error) throw error
+            router.push('/dashboard')
         }catch(error){
             alert(error.message)
         }

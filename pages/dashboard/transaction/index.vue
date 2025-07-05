@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NuxtLink to="/transaction/create">Create transaction</NuxtLink>
+    <NuxtLink to="/dashboard/transaction/ai">Create transaction</NuxtLink>
     <h2 class="text-xl font-bold mb-4">Transaction</h2>
 
     <label for="month" class="block mb-2 font-medium">Filter Bulan</label>

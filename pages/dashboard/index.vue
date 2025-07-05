@@ -6,6 +6,9 @@
       <NuxtLink to="/dashboard/profile"> Profile</NuxtLink>
       <NuxtLink to="/dashboard/budget"> Budget</NuxtLink>
       <NuxtLink to="/dashboard/transaction"> Transaction</NuxtLink>
+      <button @click="handleLogout">
+        logout
+      </button>
     </ClientOnly>
   </div>
 </template>
@@ -16,9 +19,19 @@ import { useProfiles } from '~/composables/useProfiles';
   definePageMeta({
     middleware: ['auth']
   });
-  
-  const { data: profile, pending, error } = await useProfiles()
+  const supabase = useSupabaseClient()
 
+  const { data: profile } = await useProfiles()
+  async function handleLogout() {
+      try{
+        const { error } = await supabase.auth.signOut()
+        if(error) throw error
+        alert('berhasil logout')
+        navigateTo('/')
+      }catch(e){
+
+      }
+  }
 </script>
 
 <style>

@@ -11,7 +11,6 @@
 <script setup>
     const supabase = useSupabaseClient()
     const user = reactive({
-        name:'',
         email: '',
         password: ''
     })

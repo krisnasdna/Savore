@@ -11,8 +11,9 @@ export default defineEventHandler(async (event) => {
             statusMessage: 'Unauthorized'
         })
     }
-
-    const today = new Date()
+    
+    const query = getQuery(event)
+    const today = query.month
 
     const monthStart = startOfMonth(today)
     const monthEnd = endOfMonth(today)

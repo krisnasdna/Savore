@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NuxtLink to="/category/create">Create category</NuxtLink>
+    <NuxtLink to="/dashboard/category/create">Create category</NuxtLink>
 
     <div v-if="pending">
       Loading...
