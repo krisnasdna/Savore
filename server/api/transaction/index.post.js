@@ -3,7 +3,7 @@ import prisma from "~/lib/prisma"
 import {  serverSupabaseUser } from '#supabase/server';
 
 const schema = z.object({
-    type: z.enum(["INCOME", "EXPENSE"]),
+    merchant: z.string().trim().min(1, 'Merchant required'),
     amount: z.number(),
     description: z.string().trim(),
     date: z.coerce.date(),
@@ -50,15 +50,15 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  const {type, amount, description,date, is_recurring,recurring_interval,next_recurring_date,last_processed, categoryId } = parsed.data
+  const {merchant, amount, description,date, is_recurring,recurring_interval,next_recurring_date,last_processed, categoryId } = parsed.data
 
   const createTransaction = await prisma.transaction.create({
     data:
     {
-        type: type,
         amount: amount,
         description: description,
         date: date,
+        merchant:merchant,
         is_recurring: is_recurring,
         recurring_interval: recurring_interval,
         next_recurring_date: next_recurring_date,

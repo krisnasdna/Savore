@@ -2,9 +2,7 @@
   <div>
     <div>
        <h1>Scan Struk</h1>
-
-       <input type="file" accept="image/*" @change="handleFile">
-
+       <input type="file" accept="image/jpeg" @change="handleFile">
        <p v-if="loading">Menganalisis gambar...</p>
     </div>
     <div>
@@ -16,11 +14,8 @@
           </option>
         </select>
         <div v-if="error" class="text-red-500">Gagal mengambil kategori</div>
-        <select v-model="form.type">
-            <option disabled value="">Pilih Tipe</option>
-            <option v-for="(type,index) in types" :key="index" :value="type">{{ type }}</option>
-        </select>
         <input v-model="form.amount" type="number" placeholder="Jumlah" class="input" />
+        <input v-model="form.merchant" type="text" placeholder="Merchant" class="input" />
         <input v-model="form.description" type="text" placeholder="Description" class="input" />
         <input v-model="form.date" type="date" placeholder="Date" class="input" />
         <h1>Recurring</h1>
@@ -53,7 +48,7 @@ definePageMeta({
 
 const image = ref(null)
 const form = reactive({
-    type: '',
+    merchant: null,
     amount: null,
     description: null,
     date: null,
@@ -64,7 +59,6 @@ const form = reactive({
     categoryId: ''
 })
 
-const types = ["INCOME","EXPENSE"]
 const intervals = ["DAILY", "WEEKLY", "MONTHLY", "YEARLY"]
 
 const loading = ref(false)
@@ -99,7 +93,7 @@ const analyzeImage = async () =>{
 
     if(res && res.amount){
       console.log()
-      form.type =''
+      form.merchant = res.merchant
       form.description = res.description
       form.date = format(parse(parseISO(res.date).toLocaleDateString(), 'M/d/yyyy', new Date()), 'yyyy-MM-dd')
       form.is_recurring = false
@@ -131,7 +125,7 @@ async function handleSubmit() {
 
     if (res.success) {
       successMessage.value = 'Transaction berhasil disimpan!'
-      form.type =''
+      form.merchant = null
       form.description = null
       form.date = null
       form.is_recurring = false
@@ -140,7 +134,7 @@ async function handleSubmit() {
       form.last_processed = null
       form.amount = null
       form.categoryId = ''
-      navigateTo('/transaction')
+      navigateTo('/dashboard/transaction')
     } else {
       errorMessage.value = res.error?.[0]?.message || 'Terjadi kesalahan'
     }

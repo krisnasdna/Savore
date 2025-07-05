@@ -27,6 +27,8 @@ export default defineEventHandler(async (event) => {
 
                     - Description or items purchased (brief summary)
 
+                    - Merchant/store name
+
                     -  Suggested category based on list below
                     
                     Here is the list of valid category:
@@ -41,6 +43,8 @@ export default defineEventHandler(async (event) => {
                     "date": "ISO date string",
 
                     "description": "string",
+
+                    "merchant": "string",
 
                     "categoryId": "uuid from the list category"
 

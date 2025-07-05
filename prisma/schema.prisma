@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearchPostgres"]
 }
 
 datasource db {
@@ -27,10 +28,10 @@ model Transaction {
   id                  String             @id @default(uuid())
   profile             Profile            @relation(fields: [profileId], references: [id], onDelete: Cascade)
   profileId           String
-  type                TransactionType
-  category            Category          @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  category            Category           @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId          String
   amount              Decimal
+  merchant            String
   description         String
   date                DateTime
   is_recurring        Boolean
@@ -68,11 +69,6 @@ model Category {
 
   @@map("categories")
 }
-enum TransactionType {
-  INCOME
-  EXPENSE
-}
-
 enum RecurringInterval {
   DAILY
   WEEKLY

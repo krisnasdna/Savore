@@ -6,6 +6,6 @@ export default defineEventHandler(async (event) => {
       supabase_user_id: event.context.params.id
     }
   })
-
+  
   return profile
 })

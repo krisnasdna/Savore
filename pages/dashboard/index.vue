@@ -2,10 +2,10 @@
   <div>
     <ClientOnly >
       <h1> HELLO {{ profile?.name}} </h1>
-      <NuxtLink to="/category">Category</NuxtLink>
-      <NuxtLink to="/profile"> Profile</NuxtLink>
-      <NuxtLink to="/budget"> Budget</NuxtLink>
-      <NuxtLink to="/transaction"> Transaction</NuxtLink>
+      <NuxtLink to="/dashboard/category">Category</NuxtLink>
+      <NuxtLink to="/dashboard/profile"> Profile</NuxtLink>
+      <NuxtLink to="/dashboard/budget"> Budget</NuxtLink>
+      <NuxtLink to="/dashboard/transaction"> Transaction</NuxtLink>
     </ClientOnly>
   </div>
 </template>
