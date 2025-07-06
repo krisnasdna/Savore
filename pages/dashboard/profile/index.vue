@@ -34,13 +34,7 @@ import { z } from 'zod';
 
   const supabase = useSupabaseClient()
 
-  const { data: dataProfile, pending } = await useAsyncData('profiles', () =>
-    $fetch('/api/profiles'),{
-      server: false,
-      lazy: true,
-      staleTime: 60 * 1000
-    }
-  )
+  const { data: dataProfile, pending, error } = await useProfiles()
 
   const message = ref('')
 

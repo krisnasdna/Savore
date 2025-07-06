@@ -25,8 +25,6 @@
                 <option :value="null" disabled selected >Pilih Tipe</option>
                 <option v-for="(interval,index) in intervals" :key="index" :value="interval">{{ interval }}</option>
             </select>
-            <input v-model="form.next_recurring_date" type="date" placeholder="Date" class="input" />
-            <input v-model="form.last_processed" type="date" placeholder="Date" class="input" />
         </div>
         <button :disabled="loading" class="btn">
           {{ loading ? 'Mengirim...' : 'Simpan Budget' }}
@@ -54,8 +52,6 @@ const form = reactive({
     date: null,
     is_recurring: false,
     recurring_interval: null,
-    next_recurring_date: null,
-    last_processed: null,
     categoryId: ''
 })
 
@@ -98,8 +94,6 @@ const analyzeImage = async () =>{
       form.date = format(parse(parseISO(res.date).toLocaleDateString(), 'M/d/yyyy', new Date()), 'yyyy-MM-dd')
       form.is_recurring = false
       form.recurring_interval = null
-      form.next_recurring_date = null
-      form.last_processed = null
       form.amount = res.amount
       form.categoryId = res.categoryId
     }else{
@@ -130,8 +124,6 @@ async function handleSubmit() {
       form.date = null
       form.is_recurring = false
       form.recurring_interval = null
-      form.next_recurring_date = null
-      form.last_processed = null
       form.amount = null
       form.categoryId = ''
       navigateTo('/dashboard/transaction')

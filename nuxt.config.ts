@@ -39,10 +39,11 @@ export default defineNuxtConfig({
     },
   },
   runtimeConfig:{
+    cronSecret: '',
     geminiSecretKey:'',
     public:{
 
     }
   },
-
+  
 })
