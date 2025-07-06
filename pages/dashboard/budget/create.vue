@@ -51,7 +51,7 @@ async function handleSubmit() {
       successMessage.value = 'Budget berhasil disimpan!'
       form.amount = null
       form.categoryId = ''
-      navigateTo('/budget')
+      navigateTo('/dashboard/budget')
     } else {
       errorMessage.value = res.error?.[0]?.message || 'Terjadi kesalahan'
     }

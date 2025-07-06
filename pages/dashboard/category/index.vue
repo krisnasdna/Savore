@@ -17,7 +17,7 @@
     <ul v-else>
       <li v-for="category in categories" :key="category.id">
         {{ category.name }}
-        <NuxtLink :to="`/category/update/${category.id}`"> edit</NuxtLink>
+        <NuxtLink :to="`/dashboard/category/update/${category.id}`"> edit</NuxtLink>
       </li>
     </ul>
   </div>

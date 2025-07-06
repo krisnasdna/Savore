@@ -44,7 +44,7 @@ import * as z from 'zod'
       })
 
       alert('berhasil menambahkan category!')
-      router.push('/category/')
+      router.push('/dashboard/category/')
 
     }catch(error){
 

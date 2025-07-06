@@ -40,7 +40,7 @@ import * as z from 'zod'
       })
 
       alert('berhasil mengedit category!')
-      navigateTo('/category')
+      navigateTo('/dashboard/category')
 
     }catch(error){
       console.error(error)
