@@ -21,6 +21,12 @@ export default defineNuxtConfig({
         },
       },
     ],
+    ['@nuxtjs/google-fonts', {
+        families: {
+          Roboto: true,
+          'Work Sans': true,
+        }
+    }],
   ],
   supabase: {
     redirect: false
