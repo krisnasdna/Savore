@@ -25,8 +25,9 @@
 
 <script setup>
 definePageMeta({
-  middleware: ['auth']
-})
+  middleware: ['auth'],
+  layout: 'dashboard'
+});
 
 
 const { data: categories, pending, error } = await useCategories()

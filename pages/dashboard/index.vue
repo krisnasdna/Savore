@@ -1,15 +1,38 @@
 <template>
-  <div>
-    <ClientOnly >
-      <h1> HELLO {{ profile?.name}} </h1>
-      <NuxtLink to="/dashboard/category">Category</NuxtLink>
-      <NuxtLink to="/dashboard/profile"> Profile</NuxtLink>
-      <NuxtLink to="/dashboard/budget"> Budget</NuxtLink>
-      <NuxtLink to="/dashboard/transaction"> Transaction</NuxtLink>
-      <button @click="handleLogout">
-        logout
-      </button>
-    </ClientOnly>
+  <div class="flex flex-row justify-start gap-6">
+      <div class="bg-[#4A52E6] py-6 ps-6 pe-8 rounded-xl border-2 border-black shadow-[0px_4px_0px_-1px_#000000]">
+        <div class="flex felx-row items-center gap-4">
+          <div class="size-10 rounded-full ring-1 ring-black bg-[#F3F3F3] flex items-center justify-center">
+              <Icon name="clarity:piggy-bank-solid" class="text-2xl text-[#4A52E6]"/>
+          </div>
+          <div class="flex flex-col gap-2">
+              <h5 class="text-white">Income</h5>
+              <h1 class="text-white font-bold text-2xl">$5240.21</h1>
+          </div>
+        </div>
+      </div>
+      <div class="bg-[#4A52E6] py-6 ps-6 pe-8 rounded-xl border-2 border-black shadow-[0px_4px_0px_-1px_#000000]">
+        <div class="flex felx-row items-center gap-4">
+          <div class="size-10 rounded-full ring-1 ring-black bg-[#F3F3F3] flex items-center justify-center">
+              <Icon name="clarity:piggy-bank-solid" class="text-2xl text-[#4A52E6]"/>
+          </div>
+          <div class="flex flex-col gap-2">
+              <h5 class="text-white">Income</h5>
+              <h1 class="text-white font-bold text-2xl">$5240.21</h1>
+          </div>
+        </div>
+      </div>
+      <div class="bg-[#4A52E6] py-6 ps-6 pe-8 rounded-xl border-2 border-black shadow-[0px_4px_0px_-1px_#000000]">
+        <div class="flex felx-row items-center gap-4">
+          <div class="size-10 rounded-full ring-1 ring-black bg-[#F3F3F3] flex items-center justify-center">
+              <Icon name="clarity:piggy-bank-solid" class="text-2xl text-[#4A52E6]"/>
+          </div>
+          <div class="flex flex-col gap-2">
+              <h5 class="text-white">Income</h5>
+              <h1 class="text-white font-bold text-2xl">$5240.21</h1>
+          </div>
+        </div>
+      </div>
   </div>
 </template>
 
@@ -17,21 +40,14 @@
 import { useProfiles } from '~/composables/useProfiles';
 
   definePageMeta({
-    middleware: ['auth']
+    middleware: ['auth'],
+    layout: 'dashboard'
   });
+
   const supabase = useSupabaseClient()
 
   const { data: profile } = await useProfiles()
-  async function handleLogout() {
-      try{
-        const { error } = await supabase.auth.signOut()
-        if(error) throw error
-        alert('berhasil logout')
-        navigateTo('/')
-      }catch(e){
-
-      }
-  }
+  
 </script>
 
 <style>

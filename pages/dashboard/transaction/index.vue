@@ -42,7 +42,8 @@
 import { parseISO } from 'date-fns';
 
 definePageMeta({
-  middleware: ['auth']
+  middleware: ['auth'],
+  layout: 'dashboard'
 });
 const selectedMonth = ref(new Date().toISOString().slice(0,7))
 

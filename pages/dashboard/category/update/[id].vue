@@ -16,9 +16,10 @@ import { Form, Field, ErrorMessage } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/zod';
 import * as z from 'zod'
 
-  definePageMeta({
-    middleware: ['auth']
-  })
+definePageMeta({
+  middleware: ['auth'],
+  layout: 'dashboard'
+});
   const route = useRoute()
 
   const validationSchema = toTypedSchema(

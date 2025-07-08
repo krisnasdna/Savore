@@ -36,8 +36,9 @@
 import ToggleButton from '~/components/ToggleButton.vue'
 
 definePageMeta({
-  middleware: ['auth']
-})
+  middleware: ['auth'],
+  layout: 'dashboard'
+});
 
 const form = reactive({
     type: '',

@@ -41,8 +41,9 @@ import { parse, format, parseISO } from 'date-fns'
 import ToggleButton from '~/components/ToggleButton.vue'
 
 definePageMeta({
-  middleware: ['auth']
-})
+  middleware: ['auth'],
+  layout: 'dashboard'
+});
 
 const image = ref(null)
 const form = reactive({
