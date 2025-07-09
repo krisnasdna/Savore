@@ -27,7 +27,12 @@ export default defineNuxtConfig({
           'Work Sans': true,
         }
     }],
+    'nuxt-echarts'
   ],
+  echarts: {
+    charts: ['BarChart'],
+    components: ['DatasetComponent', 'GridComponent', 'TooltipComponent'],
+  },
   supabase: {
     redirect: false
   },
@@ -51,5 +56,5 @@ export default defineNuxtConfig({
 
     }
   },
-  
+  css: ['~/assets/css/main.css']
 })

@@ -1,7 +1,7 @@
 <template>
     <div class="my-10 flex justify-between items-center">
         <div>
-            <h1 class="text-3xl font-bold ">Dashboard</h1>
+            <h1 class="text-3xl font-bold ">{{ pageTitle }}</h1>
         </div>
         <div class="">
             <div class="py-1 pe-4 ps-2 rounded-full border-2 border-black shadow-[0px_4px_0px_-1px_#000000] flex flex-row  items-center gap-2">
@@ -33,9 +33,8 @@ import { useProfiles } from '~/composables/useProfiles';
   definePageMeta({
     middleware: ['auth']
   });
-  
-  const supabase = useSupabaseClient()
-
+  const route = useRoute()
+    const pageTitle = computed(() => route.meta.title || 'Untitled')
   const { data: profile } = await useProfiles()
 </script>
 
