@@ -1,10 +1,10 @@
 <template>
-  <div class="grid grid-cols-3 grid-flow-row-dense gap-10 w-full">
-    <div class="flex flex-col gap-10 col-span-2">
+  <div class="grid grid-cols-1 sm:grid-cols-3 grid-flow-row-dense gap-10 w-full px-4 lg:px-0 py-5 lg:py-0  lg:pe-10" >
+    <div class="flex flex-col gap-10 sm:col-span-2">
       <div>
-        <div class="grid grid-cols-3 justify-start gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-3 justify-start gap-6">
           <div class="bg-[#4A52E6] py-6 ps-6 pe-8 rounded-xl border-2 border-black shadow-[0px_4px_0px_-1px_#000000]">
-            <div class="flex felx-row items-center gap-6">
+            <div class="flex flex-row sm:flex-col lg:flex-row items-center sm:items-start lg:items-center gap-6 sm:gap-2 lg:gap-6">
               <div class="size-10 rounded-full ring-1 ring-black bg-[#F3F3F3] flex items-center justify-center">
                   <Icon name="clarity:piggy-bank-solid" class="text-2xl text-[#4A52E6]"/>
               </div>
@@ -15,7 +15,7 @@
             </div>
           </div>
           <div class="bg-[#FFF] py-6 ps-6 pe-8 rounded-xl border-2 border-black shadow-[0px_4px_0px_-1px_#000000]">
-            <div class="flex felx-row items-center gap-4">
+            <div class="flex flex-row sm:flex-col lg:flex-row items-center sm:items-start lg:items-center gap-6 sm:gap-2 lg:gap-6">
               <div class="size-10 rounded-full ring-1 ring-black bg-[#F3F3F3] flex items-center justify-center">
                   <Icon name="clarity:piggy-bank-solid" class="text-2xl text-black"/>
               </div>
@@ -26,7 +26,7 @@
             </div>
           </div>
           <div class="bg-[#FFF] py-6 ps-6 pe-8 rounded-xl border-2 border-black shadow-[0px_4px_0px_-1px_#000000]">
-            <div class="flex felx-row items-center gap-4">
+            <div class="flex flex-row sm:flex-col lg:flex-row items-center sm:items-start lg:items-center gap-6 sm:gap-2 lg:gap-6">
               <div class="size-10 rounded-full ring-1 ring-black bg-[#F3F3F3] flex items-center justify-center">
                   <Icon name="clarity:piggy-bank-solid" class="text-2xl text-black"/>
               </div>

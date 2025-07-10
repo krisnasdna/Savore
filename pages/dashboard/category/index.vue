@@ -1,34 +1,32 @@
 <template>
-  <div v-if="pending" class="flex flex-col items-center justify-center h-full gap-4">
-      <Icon name="svg-spinners:ring-resize" class="text-3xl"/>
-      <h1>Loading...</h1>
-  </div>
-
-  <div v-else-if="error">
-    Terjadi kesalahan: {{ error.message }}
-  </div>
-
-  <div v-else-if="isEmpty" class="flex items-center justify-center">
-    <h1>Belum ada data category</h1>
-  </div>
-  <div v-else>
-    <div class="flex items-center justify-between">
+  <div class="px-4 lg:px-4  lg:pe-5 py-5">
+    <div class="flex items-center justify-between gap-2">
       <div class="border-2 border-black px-3 py-2 rounded-xl shadow-[0px_4px_0px_-1px_#000000] bg-[#4A52E6] text-white">
         <NuxtLink to="/dashboard/category/create">Add category</NuxtLink>
       </div>
-      <div>
+      <div class="">
         <div>
           <form action="">
             <div class="relative">
-              <Icon  name="iconamoon:search" class="absolute ml-3 mt-3 text-xl pointer-events-none"/>
-              <input type="text" name="serach" id="" placeholder="Search" class="py-2 ps-10 border-2 border-black rounded-xl shadow-[0px_4px_0px_-1px_#000000] focus:border-black">
+              <Icon  name="iconamoon:search" class="absolute origin-top-right right-0 text-xl pointer-events-none mt-3 me-3"/>
+              <input type="text" name="serach" id="" placeholder="Search" class="py-2 ps-3 border-2 border-black rounded-xl shadow-[0px_4px_0px_-1px_#000000] focus:border-black">
             </div>
           </form>
         </div>
       </div>
     </div>
     <div class="relative overflow-x-auto border-2 border-black rounded-xl p-4 shadow-[0px_4px_0px_-1px_#000000] mt-10">
-      <table class="w-full text-sm text-left text-gray-500">
+      <div v-if="pending" class="flex flex-col items-center justify-center h-full gap-4">
+        <Icon name="svg-spinners:ring-resize" class="text-3xl"/>
+        <h1>Loading...</h1>
+      </div>
+      <div v-else-if="error">
+        Terjadi kesalahan: {{ error.message }}
+      </div>
+      <div v-else-if="isEmpty" class="flex items-center justify-center">
+        <h1>Belum ada data category</h1>
+      </div>
+      <table class="w-full text-sm text-left text-gray-500" v-else>
           <thead class="text-xs text-gray-700 uppercase ">
               <tr>
                   <th scope="col" class="py-3">

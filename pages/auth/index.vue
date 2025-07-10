@@ -35,7 +35,7 @@
                         </NuxtLink>
                     </div>
                     <div>
-                        <img src="/image/savore.png" alt="" width="120">
+                        <Logo />
                     </div>
                     <div>
 

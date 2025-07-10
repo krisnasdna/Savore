@@ -1,13 +1,14 @@
 <template>
-  <div class="flex sm:hidden">
-      <slot />
-  </div>
-  <div class="hidden sm:flex items-start gap-10 overflow-hidden max-w-screen max-h-screen">
+  <div class="hidden lg:flex items-start gap-10 max-w-screen max-h-screen">
     <Sidebar />
-    <div class="w-full me-5">
+    <div class="w-full h-screen">
       <Header />
       <slot />
     </div>
+  </div>
+  <div class="grid grid-cols-1 lg:hidden items-start  max-w-screen max-h-screen">
+    <Header/>
+    <slot/>
   </div>
 </template>
 

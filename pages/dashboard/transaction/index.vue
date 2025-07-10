@@ -1,39 +1,74 @@
 <template>
-  <div>
-    <NuxtLink to="/dashboard/transaction/ai">Create transaction</NuxtLink>
-    <h2 class="text-xl font-bold mb-4">Transaction</h2>
-
-    <label for="month" class="block mb-2 font-medium">Filter Bulan</label>
-    <input
-      type="month"
-      id="month"
-      v-model="selectedMonth"
-      @change="refreshData"
-      class="border p-2 rounded mb-4"
-    />
-
-    <div v-if="pending">Loading...</div>
-
-    <div v-else-if="error">Terjadi kesalahan: {{ error.message }}</div>
-
-    <div v-else-if="transaction.length === 0">
-      <p class="text-gray-500">Tidak ada transaksi pada bulan ini.</p>
+  <div class="pe-5">
+    <div class="flex flex-row w-full justify-between items-center">
+      <div class="border-2 border-black px-3 py-2 rounded-xl shadow-[0px_4px_0px_-1px_#000000] bg-[#4A52E6] text-white">
+        <NuxtLink to="/dashboard/budget/create">Add budget</NuxtLink>
+      </div>
+      <input
+        type="month"
+        id="month"
+        v-model="selectedMonth"
+        @change="refreshData"
+        class="border-2 border-black p-2 mb-4 rounded-xl shadow-[0px_4px_0px_-1px_#000000]"
+      />
     </div>
-    
-    <div v-else>
-      <ul class="space-y-4">
-        <li
-          v-for="item in transaction"
-          :key="item.id"
-          class="p-4 bg-white rounded-lg shadow"
-        >
-          <p class="font-semibold">{{ item.category?.name }}</p>
-          <p>Amount: Rp {{ Number(item.amount).toLocaleString()}}</p>
-          <p>Merchant: {{ item.merchant}}</p>
-          <p>Description: {{ item.description}}</p>
-          <p>Date: {{ parseISO(item.date).toLocaleDateString()}}</p>
-        </li>
-      </ul>
+    <div class="relative overflow-x-auto border-2 border-black rounded-xl p-4 shadow-[0px_4px_0px_-1px_#000000] mt-10">
+      <div v-if="pending" class="flex flex-col items-center justify-center h-full gap-4">
+        <Icon name="svg-spinners:ring-resize" class="text-3xl"/>
+        <h1>Loading...</h1>
+      </div>
+      <div v-else-if="error">
+        Terjadi kesalahan: {{ error.message }}
+      </div>
+      <div v-else-if="isEmpty" class="flex items-center justify-center">
+        <h1>Belum ada data category</h1>
+      </div>
+      <table class="w-full text-sm text-left text-gray-500" v-else>
+          <thead class="text-xs text-gray-700 uppercase ">
+              <tr>
+                  <th scope="col" class="py-3">
+                      Category name
+                  </th>
+                  <th scope="col" class="py-3">
+                      Amount
+                  </th>
+                  <th scope="col" class="py-3">
+                      Merchant
+                  </th>
+                  <th scope="col" class="py-3">
+                      Description
+                  </th>
+                  <th scope="col" class="py-3">
+                      Date
+                  </th>
+                  <th scope="col" class="py-3">
+                      Action
+                  </th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr class="bg-white border-b border-gray-200" v-for="item in transaction" :key="item.id">
+                  <td class="py-4">
+                      {{ item.category?.name}}
+                  </td>
+                  <td class="py-4">
+                      Rp {{ Number(item?.amount).toLocaleString()}}
+                  </td>
+                  <td class="py-4">
+                     {{ item?.merchant}}
+                  </td>
+                  <td class="py-4">
+                    {{ item?.description}}
+                  </td>
+                  <td class="py-4">
+                    {{ parseISO(item?.date).toLocaleDateString()}}
+                  </td>
+                  <td class="py-4">
+                    ...
+                  </td>
+              </tr>
+          </tbody>
+      </table>
     </div>
   </div>
 </template>
