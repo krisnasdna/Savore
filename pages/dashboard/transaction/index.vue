@@ -1,5 +1,5 @@
 <template>
-  <div class="pe-5">
+  <div class="px-4 lg:px-0 lg:pe-5 py-5">
     <div class="flex flex-row w-full justify-between items-center">
       <div class="border-2 border-black px-3 py-2 rounded-xl shadow-[0px_4px_0px_-1px_#000000] bg-[#4A52E6] text-white">
         <NuxtLink to="/dashboard/budget/create">Add budget</NuxtLink>
@@ -9,7 +9,7 @@
         id="month"
         v-model="selectedMonth"
         @change="refreshData"
-        class="border-2 border-black p-2 mb-4 rounded-xl shadow-[0px_4px_0px_-1px_#000000]"
+        class="border-2 border-black p-2 rounded-xl shadow-[0px_4px_0px_-1px_#000000]"
       />
     </div>
     <div class="relative overflow-x-auto border-2 border-black rounded-xl p-4 shadow-[0px_4px_0px_-1px_#000000] mt-10">

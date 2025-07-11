@@ -9,18 +9,7 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@prisma/nuxt',
     '@pinia/nuxt',
-    [
-      '@vee-validate/nuxt',
-      {
-        autoImports: true,
-        componentNames: {
-          Form: 'VeeForm',
-          Field: 'VeeField',
-          FieldArray: 'VeeFieldArray',
-          ErrorMessage: 'VeeErrorMessage',
-        },
-      },
-    ],
+    '@vee-validate/nuxt',
     ['@nuxtjs/google-fonts', {
         families: {
           Roboto: true,

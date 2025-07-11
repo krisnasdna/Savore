@@ -27,7 +27,7 @@
     </div>
     <div class="hidden lg:flex my-10 justify-end items-end w-full pe-6">
         <div class="relative">
-            <div class="py-1 pe-4 ps-2 rounded-full border-2 border-black shadow-[0px_4px_0px_-1px_#000000] flex flex-row  items-center gap-2" @click="dropDown = !dropDown">
+            <div class="py-1 pe-4 ps-2 rounded-full border-2 border-black shadow-[0px_4px_0px_-1px_#000000] flex flex-row  items-center gap-2 cursor-pointer" @click="dropDown = !dropDown">
                 <div>
                     <NuxtImg 
                     :src= profile?.image_url

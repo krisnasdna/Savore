@@ -31,7 +31,7 @@
     <!-- Desktop -->
     <div class="hidden lg:flex">
         <div v-if="!openSidebar" class="h-full ms-5 my-10 text-end w-full lg:flex justify-center items-end hidden" >
-            <div class="border-2 border-blak rounded-xl py-2 px-4 shadow-[0px_4px_0px_-1px_#000000]" @click="openSidebar = !openSidebar">
+            <div class="border-2 border-blak rounded-xl py-2 px-4 shadow-[0px_4px_0px_-1px_#000000] cursor-pointer" @click="openSidebar = !openSidebar">
                 <Icon name="ic:round-menu" class="text-xl"/>
             </div>
         </div>
@@ -41,7 +41,7 @@
                     <div>
                         <Logo/>
                     </div>
-                    <div class="border-2 border-black rounded-xl px-4 py-2 shadow-[0px_4px_0px_-1px_#000000] justify-self-end" @click="openSidebar = !openSidebar">
+                    <div class="border-2 border-black rounded-xl px-4 py-2 shadow-[0px_4px_0px_-1px_#000000] justify-self-end cursor-pointer" @click="openSidebar = !openSidebar">
                         <Icon name="icon-park-outline:close" class="text-xl"/>
                     </div>
                 </div>
