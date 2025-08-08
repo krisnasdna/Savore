@@ -16,23 +16,21 @@
         />
         <FormField name="bio" label="Tentang Anda" type="textarea" />
 
-        <button
-          type="submit"
-          class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-        >
+        <Button class="bg-black text-white">
           Submit
-        </button>
+        </Button>
       </Form>
       </div>
     </Card>
   </div>
 </template>
 
-<script  setup>
+<script  setup lang="ts">
 import { Form } from 'vee-validate'
 import { z } from 'zod'
 import { toTypedSchema } from '@vee-validate/zod'
 import FormField from '@/components/FormField.vue'
+import { Button } from '@/components/Ui/button'
 
 const schema = toTypedSchema(
   z.object({
@@ -43,7 +41,7 @@ const schema = toTypedSchema(
   })
 )
 
-function onSubmit(values) {
+function onSubmit(values: {}) {
   console.log('Data Form:', values)
 }
 

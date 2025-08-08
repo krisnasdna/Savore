@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     '@prisma/nuxt',
     '@pinia/nuxt',
     '@vee-validate/nuxt',
+    'shadcn-nuxt',
     ['@nuxtjs/google-fonts', {
         families: {
           Roboto: true,
@@ -18,6 +19,17 @@ export default defineNuxtConfig({
     }],
     'nuxt-echarts'
   ],
+  shadcn: {
+    /**
+     * Prefix for all the imported component
+     */
+    prefix: '',
+    /**
+     * Directory that the component lives in.
+     * @default "./components/ui"
+     */
+    componentDir: './components/ui'
+  },
   echarts: {
     charts: ['BarChart'],
     components: ['DatasetComponent', 'GridComponent', 'TooltipComponent'],
